@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Update Test Drive Booking{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">✏️ Update Test Drive Booking</h2>
+    <div class="card shadow-lg border-0 rounded-3 mt-4">
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label class="form-label"><strong>Car:</strong></label>
+                    <input type="text" class="form-control" value="{{ form.car.value }}" readonly>
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_location" class="form-label"><strong>Location:</strong></label>
+                    {{ form.location }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_address" class="form-label"><strong>Address:</strong></label>
+                    {{ form.address }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_date" class="form-label"><strong>Date:</strong></label>
+                    {{ form.date }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_time_slot" class="form-label"><strong>Time Slot:</strong></label>
+                    {{ form.time_slot }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_status" class="form-label"><strong>Status:</strong></label>
+                    {{ form.status }}
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Update Booking
+                    </button>
+                    <a href="{% url 'testdrivelist_url' %}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to List
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

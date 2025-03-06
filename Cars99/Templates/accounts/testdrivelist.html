@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block title %}Test Drive Bookings{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-body">
+            <h2 class="text-center mb-4 text-primary">🚗 Test Drive Bookings</h2>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="bg-dark text-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Car</th>
+                            <th>Location</th>
+                            <th>Address</th>
+                            <th>Date</th>
+                            <th>Time Slot</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in bookings %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td><strong>{{ booking.car.name }}</strong></td>
+                            <td>
+                                {% if booking.location == 'home' %}
+                                    🏠 <span class="text-success">Home Test Drive</span>
+                                {% else %}
+                                    🏢 <span class="text-info">Center Test Drive</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ booking.address|default:"N/A" }}</td>
+                            <td>{{ booking.date }}</td>
+                            <td>{{ booking.time_slot }}</td>
+                            <td>
+                                <span class="badge rounded-pill 
+                                    {% if booking.status == 'Pending' %} bg-warning text-dark 
+                                    {% elif booking.status == 'Approved' %} bg-success 
+                                    {% else %} bg-danger {% endif %}">
+                                    {{ booking.status }}
+                                </span>
+                            </td>
+                            <td>
+                                <!-- Edit Button -->
+                                <a href="{% url 'updatetestdrive_url' booking.id %}" class="btn btn-sm btn-outline-primary">
+                                    ✏️ Edit
+                                </a>
+
+                                <!-- Cancel Button (Opens Confirmation Modal) -->
+                                <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#cancelModal" data-booking-id="{{ booking.id }}">
+                                    ❌ Cancel
+                                </button>
+
+                                <!-- Hidden Form for Cancellation -->
+                                <form id="cancel-form-{{ booking.id }}" method="POST" action="{% url 'canceltestdrive_url' booking.id %}" style="display: none;">
+                                    {% csrf_token %}
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="8" class="text-center text-muted">No test drive bookings found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Modal for Cancellation Confirmation -->
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="cancelModalLabel">Confirm Cancellation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to cancel this test drive booking? This action cannot be undone.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Keep It</button>
+                <button type="button" class="btn btn-danger" id="confirmCancelBtn">Yes, Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Cancel Confirmation -->
+<script>
+    let bookingIdToCancel = null;
+
+    document.getElementById('cancelModal').addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget; // Button that triggered the modal
+        bookingIdToCancel = button.getAttribute('data-booking-id');
+    });
+
+    document.getElementById('confirmCancelBtn').addEventListener('click', function () {
+        if (bookingIdToCancel) {
+            document.getElementById("cancel-form-" + bookingIdToCancel).submit();
+        }
+    });
+</script>
+
+{% endblock %}

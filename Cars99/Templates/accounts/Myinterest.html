@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block title %}My Interested Cars - Cars99{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="fw-bold text-center mb-4">My Interested Cars</h2>
+
+    {% if interests %}
+    <div class="row">
+        {% for interest in interests %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card interest-card shadow-lg">
+                <img src="{{ interest.car.image.url }}" alt="{{ interest.car.brand }} {{ interest.car.name }}" class="card-img-top">
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ interest.car.brand }} {{ interest.car.name }}</h5>
+                    <p class="text-muted">Year: {{ interest.car.year }}</p>
+                    <p class="fw-bold text-primary">₹{{ interest.car.price|intcomma }}</p>
+
+                    <!-- ✅ Show Interest Date -->
+                    <p class="text-muted"><strong>Interest shown on:</strong> {{ interest.timestamp|date:"d M Y, h:i A" }}</p>
+
+                    <div class="d-flex justify-content-between mt-3">
+                        <a href="{% url 'car_detail' interest.car.pk %}" class="btn btn-primary w-50 me-2">
+                            <i class="fas fa-eye"></i> View Details
+                        </a>
+                        <a href="{% url 'remove_intrest_url' interest.car.pk %}" class="btn btn-outline-danger w-50">
+                            <i class="fas fa-trash-alt"></i> Remove
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-center text-muted">You haven't shown interest in any cars yet.</p>
+    {% endif %}
+</div>
+
+<!-- ✅ Custom Styling -->
+<style>
+    .interest-card {
+        border-radius: 12px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease-in-out;
+        background: white;
+        overflow: hidden;
+        border: none;
+    }
+
+    .interest-card:hover {
+        transform: scale(1.03);
+    }
+
+    .interest-card img {
+        width: 100%;
+        height: 220px; /* ✅ Fixed height for consistency */
+        object-fit: cover; /* ✅ Maintains aspect ratio and crops extra parts */
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+
+    .btn-primary {
+        background: #004085;
+        color: white;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: 0.3s ease-in-out;
+    }
+
+    .btn-primary:hover {
+        background: #002F5E;
+    }
+
+    .btn-outline-danger {
+        border: 2px solid #dc3545;
+        color: #dc3545;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: 0.3s ease-in-out;
+    }
+
+    .btn-outline-danger:hover {
+        background: #dc3545;
+        color: white;
+        box-shadow: 0px 4px 10px rgba(220, 53, 69, 0.4);
+        transform: scale(1.05);
+    }
+</style>
+{% endblock %}

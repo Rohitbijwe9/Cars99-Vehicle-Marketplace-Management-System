@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block title %}Explore Cars - Cars99{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center text-primary fw-bold mb-4">Explore Available Cars</h2>
+    
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for car in cars %}
+        <div class="col">
+            <div class="card h-100 shadow-lg border-0 rounded-4 overflow-hidden">
+                <!-- Car Image -->
+                <img src="{{ car.image.url }}" class="card-img-top car-img" alt="{{ car.brand }} {{ car.name }}">
+
+                <!-- Car Details -->
+                <div class="card-body">
+                    <h5 class="card-title text-dark fw-bold">{{ car.brand }} {{ car.name }}</h5>
+                    <p class="card-text text-muted">
+                        <i class="fas fa-calendar-alt"></i> {{ car.year }} &nbsp; | &nbsp;
+                        <i class="fas fa-tag"></i> ₹{{ car.price|intcomma }}
+                    </p>
+                    <p class="text-muted small"><i class="fas fa-clock"></i> Posted on: {{ car.created_at|date:"d M Y" }}</p>
+
+                    <!-- View Details Button -->
+                    <a href="{% url 'car_detail' car.id %}" class="btn btn-primary w-100">
+                        <i class="fas fa-info-circle"></i> View Details
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center text-muted">No cars available at the moment.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Custom CSS for Styling -->
+<style>
+    /* Card Image Styling */
+    .car-img {
+        height: 220px;
+        object-fit: cover;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover .car-img {
+        transform: scale(1.05);
+    }
+
+    /* Card Styling */
+    .card {
+        border-radius: 16px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+        transform: translateY(-5px);
+    }
+
+    /* Button Styling */
+    .btn {
+        font-weight: 600;
+        border-radius: 8px;
+    }
+
+    /* Responsive Grid */
+    @media (max-width: 768px) {
+        .row-cols-md-3 {
+            row-cols-1;
+        }
+    }
+</style>
+{% endblock %}

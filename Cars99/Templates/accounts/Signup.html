@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Signup | Cars99</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-lg border-0">
+                <div class="card-header text-center bg-white">
+                    <h3 class="fw-bold text-primary">Create an Account</h3>
+                    <p class="text-muted">Join Cars99 and start buying & selling</p>
+                </div>
+                <div class="card-body p-4">
+                    
+                    <!-- Display Messages -->
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Username</label>
+                            <input type="text" name="username" class="form-control" placeholder="Enter your username" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Email</label>
+                            <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+                    </form>
+
+                    <p class="text-center mt-3">
+                        Already have an account? <a href="{% url 'login_url' %}" class="text-primary fw-bold">Login</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Styling -->
+<style>
+    body {
+        background-color: #f5f7fa;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+        padding: 12px;
+        font-size: 16px;
+        background-color: #fff;
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.4);
+    }
+
+    .btn-primary {
+        background: #007bff;
+        border: none;
+        padding: 12px;
+        font-size: 18px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .btn-primary:hover {
+        background: #0056b3;
+        box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.5);
+    }
+
+    .card {
+        border-radius: 12px;
+    }
+
+    .card-header {
+        border-bottom: none;
+        border-radius: 12px 12px 0 0;
+    }
+</style>
+{% endblock %}

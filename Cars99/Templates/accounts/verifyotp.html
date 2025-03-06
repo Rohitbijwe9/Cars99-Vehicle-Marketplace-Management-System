@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-lg p-4" style="width: 400px;">
+        <h3 class="text-center mb-3">Verify OTP</h3>
+        
+        {% if messages %}
+            <div class="alert alert-danger">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label for="otp" class="form-label">Enter OTP</label>
+                <input type="text" name="otp" id="otp" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Verify OTP</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <p>Didn't receive OTP? <a href="{% url 'verify_otp_url' %}">Resend OTP</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sell Your Car - Cars99{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-5">
+                    
+                    <!-- Header Section -->
+                    <h2 class="text-center fw-bold text-primary">Sell Your Car</h2>
+                    <p class="text-center text-muted">Fill in the details below to list your car for sale.</p>
+                    <hr>
+
+                    <!-- Car Listing Form -->
+                    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        {% csrf_token %}
+
+                        <!-- Seller (User) -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Seller (Your Username) <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" value="{{ request.user }}" readonly>
+                        </div>
+
+                        <!-- Car Name -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Car Name <span class="text-danger">*</span></label>
+                            <input type="text" name="name" class="form-control" placeholder="Enter Car Name" required>
+                        </div>
+
+                        <!-- Brand -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Brand <span class="text-danger">*</span></label>
+                            <select name="brand" class="form-select" required>
+                                <option value="">Select Brand</option>
+                                {% for value, label in form.brand.field.choices %}
+                                    {% if value %}
+                                        <option value="{{ value }}">{{ label }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Year -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Manufacturing Year <span class="text-danger">*</span></label>
+                            <input type="number" name="year" class="form-control" placeholder="Enter Year" required>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Price (₹) <span class="text-danger">*</span></label>
+                            <input type="text" name="price" class="form-control" placeholder="Enter Price" required>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Description</label>
+                            <textarea name="description" class="form-control" placeholder="Write a short description" rows="4"></textarea>
+                        </div>
+
+                        <!-- Car Image Upload -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Upload Car Image <span class="text-danger">*</span></label>
+                            <input type="file" name="image" class="form-control" required>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary w-100 py-2 fs-5">
+                            <i class="fas fa-car"></i> List Your Car
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Additional Styling -->
+<style>
+    /* Enhance form input fields */
+    input, select, textarea {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+        background-color: #fff;
+        font-size: 16px;
+    }
+
+    /* Improve textarea appearance */
+    textarea {
+        resize: vertical;
+        height: 120px;
+    }
+
+    /* Button hover effect */
+    button:hover {
+        background-color: #0056b3 !important;
+        transform: scale(1.02);
+        transition: 0.3s;
+    }
+
+    /* Card Shadow */
+    .card {
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Responsive form */
+    @media (max-width: 768px) {
+        .card {
+            padding: 20px;
+        }
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,295 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - Cars99{% endblock %}
+
+{% block content %}
+
+<!-- Featured Cars Section -->
+<style>
+    /* Full-width professional carousel */
+    .carousel-item img {
+        height: 550px;
+        object-fit: cover;
+        filter: brightness(0.6); /* Darken for better contrast */
+        border-radius: 12px;
+    }
+
+    /* Carousel caption styling */
+    .carousel-caption {
+        bottom: 20%;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        font-size: 1.3rem;
+    }
+
+    /* Navigation buttons improvement */
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 15px;
+        border-radius: 50%;
+    }
+
+    /* Brand section styling */
+    .brand-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    .brand-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Brand logos */
+    .brand-logo {
+        width: 100px;
+        height: 80px;
+        object-fit: contain;
+    }
+
+    /* Call-to-action button */
+    .btn-custom {
+        background: linear-gradient(45deg, #ff9800, #ff5722);
+        color: white;
+        padding: 12px 25px;
+        font-size: 1.2rem;
+        border-radius: 30px;
+        transition: 0.3s ease;
+    }
+
+    .btn-custom:hover {
+        background: linear-gradient(45deg, #ff5722, #ff9800);
+        transform: scale(1.05);
+    }
+</style>
+
+<div class="container-fluid px-0">
+    <div id="carCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static 'images/wallpaper/car1.jpg' %}" class="d-block w-100" alt="Car 1">
+                <div class="carousel-caption">
+                    <h2 class="fw-bold">Luxury & Performance</h2>
+                    <p>Experience the best cars with unbeatable deals.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'images/wallpaper/car2.jpg' %}" class="d-block w-100" alt="Car 2">
+                <div class="carousel-caption">
+                    <h2 class="fw-bold">Drive Your Dream</h2>
+                    <p>Find your perfect car at the best price.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'images/wallpaper/car3.jpg' %}" class="d-block w-100" alt="Car 3">
+                <div class="carousel-caption">
+                    <h2 class="fw-bold">Elegance on Wheels</h2>
+                    <p>Style, comfort, and power in one ride.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+</div>
+
+<!-- Brand Logos Section -->
+<div class="container my-5">
+    <h2 class="text-center fw-bold">Browse by Brand</h2>
+    <p class="text-center text-muted">Select a car brand to explore models.</p>
+
+    <div class="row mt-4 d-flex justify-content-center">
+        <!-- Jaguar -->
+        <div class="col-md-3 col-6 text-center mb-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card border-0 shadow-sm p-3">
+                    <img src="{% static 'images/jaguarlogo.jpg' %}" class="brand-logo" alt="Jaguar">
+                    <h6 class="mt-2">JAGUAR</h6>
+                </div>
+            </a>
+        </div>
+
+        <!-- BMW -->
+        <div class="col-md-3 col-6 text-center mb-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card border-0 shadow-sm p-3">
+                    <img src="{% static 'images/bmwlogo.jpg' %}" class="brand-logo" alt="BMW">
+                    <h6 class="mt-2">BMW</h6>
+                </div>
+            </a>
+        </div>
+
+        <!-- Mercedes -->
+        <div class="col-md-3 col-6 text-center mb-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card border-0 shadow-sm p-3">
+                    <img src="{% static 'images/mercedeslogo.png' %}" class="brand-logo" alt="Mercedes">
+                    <h6 class="mt-2">MERCEDES</h6>
+                </div>
+            </a>
+        </div>
+
+        <!-- Audi -->
+        <div class="col-md-3 col-6 text-center mb-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card border-0 shadow-sm p-3">
+                    <img src="{% static 'images/audilogo.jpg' %}" class="brand-logo" alt="Audi">
+                    <h6 class="mt-2">AUDI</h6>
+                </div>
+            </a>
+        </div>
+
+        <!-- Second Row -->
+        <!-- Skoda -->
+        <div class="col-md-3 col-6 text-center mb-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card border-0 shadow-sm p-3">
+                    <img src="{% static 'images/skodalogo.jpg' %}" class="brand-logo" alt="Skoda">
+                    <h6 class="mt-2">SKODA</h6>
+                </div>
+            </a>
+        </div>
+
+        <!-- Volkswagen -->
+        <div class="col-md-3 col-6 text-center mb-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card border-0 shadow-sm p-3">
+                    <img src="{% static 'images/vwlogo.jpg' %}" class="brand-logo" alt="Volkswagen">
+                    <h6 class="mt-2">VOLKSWAGEN</h6>
+                </div>
+            </a>
+        </div>
+
+        <!-- Toyota -->
+        <div class="col-md-3 col-6 text-center mb-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card border-0 shadow-sm p-3">
+                    <img src="{% static 'images/toyotalogo.jpg' %}" class="brand-logo" alt="Toyota">
+                    <h6 class="mt-2">TOYOTA</h6>
+                </div>
+            </a>
+        </div>
+
+        <!-- Ford -->
+        <div class="col-md-3 col-6 text-center mb-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card border-0 shadow-sm p-3">
+                    <img src="{% static 'images/fordlogo.jpg' %}" class="brand-logo" alt="Ford">
+                    <h6 class="mt-2">FORD</h6>
+                </div>
+            </a>
+        </div>
+
+        <!-- Third Row -->
+        <!-- Honda -->
+        <div class="col-md-3 col-6 text-center mb-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card border-0 shadow-sm p-3">
+                    <img src="{% static 'images/hondalogo.jpg' %}" class="brand-logo" alt="Honda">
+                    <h6 class="mt-2">HONDA</h6>
+                </div>
+            </a>
+        </div>
+
+        <!-- Hyundai -->
+        <div class="col-md-3 col-6 text-center mb-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card border-0 shadow-sm p-3">
+                    <img src="{% static 'images/hyundailogo.jpg' %}" class="brand-logo" alt="Hyundai">
+                    <h6 class="mt-2">HYUNDAI</h6>
+                </div>
+            </a>
+        </div>
+
+        <!-- Kia -->
+        <div class="col-md-3 col-6 text-center mb-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card border-0 shadow-sm p-3">
+                    <img src="{% static 'images/kialogo.jpg' %}" class="brand-logo" alt="Kia">
+                    <h6 class="mt-2">KIA</h6>
+                </div>
+            </a>
+        </div>
+
+        <!-- Renault -->
+        <div class="col-md-3 col-6 text-center mb-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card border-0 shadow-sm p-3">
+                    <img src="{% static 'images/renaultlogo.jpg' %}" class="brand-logo" alt="Renault">
+                    <h6 class="mt-2">RENAULT</h6>
+                </div>
+            </a>
+        </div>
+
+        <!-- Fourth Row -->
+        <!-- MG -->
+        <div class="col-md-3 col-6 text-center mb-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card border-0 shadow-sm p-3">
+                    <img src="{% static 'images/mglogo.jpg' %}" class="brand-logo" alt="MG">
+                    <h6 class="mt-2">MG</h6>
+                </div>
+            </a>
+        </div>
+
+        <!-- Suzuki -->
+        <div class="col-md-3 col-6 text-center mb-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card border-0 shadow-sm p-3">
+                    <img src="{% static 'images/Suzukilogo.png' %}" class="brand-logo" alt="Suzuki">
+                    <h6 class="mt-2">SUZUKI</h6>
+                </div>
+            </a>
+        </div>
+
+        <!-- Tata -->
+        <div class="col-md-3 col-6 text-center mb-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card border-0 shadow-sm p-3">
+                    <img src="{% static 'images/tatalogo.jpg' %}" class="brand-logo" alt="Tata">
+                    <h6 class="mt-2">TATA</h6>
+                </div>
+            </a>
+        </div>
+
+        <!-- Mahindra -->
+        <div class="col-md-3 col-6 text-center mb-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card border-0 shadow-sm p-3">
+                    <img src="{% static 'images/mahindralogo.jpg' %}" class="brand-logo" alt="Mahindra">
+                    <h6 class="mt-2">MAHINDRA</h6>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<!-- CSS for Image Styling -->
+<style>
+    .brand-logo {
+        width: 120px;
+        height: 80px;
+        object-fit: contain;
+        display: block;
+        margin: auto;
+    }
+</style>
+
+
+<!-- Call to Action Section -->
+<div class="container text-center my-5">
+    <h2 class="fw-bold">Want to Sell Your Car?</h2>
+    <p class="text-muted">Get the best price for your car with ease.</p>
+    <a href="{% url 'car_url'%}" class="btn btn-warning btn-lg">Sell Your Car</a>
+</div>
+
+{% endblock %}
